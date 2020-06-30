@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta name="viewport" content="width=device-width,initial-scale=1">
+                <!-- bootstap css -->
+                <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+                <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+                <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+            
+            
+                <title>GAPMCD</title>
+                <!-- {% load static %}
+                <script type="text/javascript" src="{% static 'personal/scripts/graphLoader_dust.js'%}"></script>
+                <script type="text/javascript" src="{% static 'personal/scripts/switch module.js'%}"></script>
+                <script type="text/javascript" src="{% static 'personal/scripts/packingData.js'%}"></script>
+                <script type="text/javascript" src="{% static 'personal/scripts/script.js'%}"></script>
+                
+                <script type="text/javascript" src="{% static 'personal/lib/Formula_dust.js'%}"></script>
+                <script type="text/javascript" src="{% static 'personal/ext_lib/JsGraphicsLib/lib/ErrorManager.js'%}"></script>
+                <link rel="stylesheet" type="text/css" href="{% static 'personal/styles/template.css'%}" />
+                <link rel="stylesheet" type="text/css" href="{% static 'personal/styles/ui.css'%}" />
+                <link rel="stylesheet" type="text/css" href="{% static 'personal/styles/style.css'%}" />
+                <link rel="stylesheet" type="text/css" href="{% static 'personal/styles/layoutComponents.css'%}" />
+                <link rel="stylesheet" type="text/css" href="{% static 'personal/styles/reset.css'%}" />
+                <link rel="stylesheet" type="text/css" href="{% static 'personal/styles/text.css'%}" />
+                <link rel="stylesheet" type="text/css" href="{% static 'personal/styles/umntemplate.css'%}" />
+                <link rel="stylesheet" type="text/css" href="{% static 'personal/styles/optional.css'%}" />
+                 -->
+                <style type="text/css">
+                    @import url('https://fonts.googleapis.com/css?family=Indie+Flower|Raleway');
+
+body{
+	font-family: 'Raleway',serif;
+	background-color: white;
+	margin: 0;
+	padding: 0;
+}
+
+#nav_bar{
+	margin-bottom: 0;
+	padding: 0;
+	background-color:#fff;
+	border: none;
+	z-index: 10000;
+	/*position: absolute;*/
+}
+
+.app-name{
+	color: #d50000 !important;
+	font-size: 2.1em;
+	font-weight: bolder;
+	transition: all 0.3s;
+}
+.app-name:hover{
+	color: #fff!important;
+}
+#nav_list li a{
+	color: #d50000;
+	font-weight: bolder;
+	transition: all 0.3s;
+	font-size: 2.1em; 
+}
+
+#nav_list li a:hover{
+	color:#fff;
+}
+
+#logo{
+	max-height: 42px;
+	margin-right: 8px;
+	display: inline-block;
+	margin-top: -15px;
+}
+
+#headRow{
+	background-image: url('https://unsplash.it/1200?image=1056');
+	background-size: cover;
+	top: 0; bottom: 0;
+    position: absolute;
+    width: 100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	margin: 0;
+}
+
+#tagline{
+	color: black;
+	padding-top: 4%;
+	font-size: 2.3em;
+}
+#tagline-2{
+	color: black;
+	padding-top: 2%;
+	padding-bottom: 5%;
+	font-family: 'Indie Flower',cursive;
+	font-size: 2em;
+}
+
+ul#list_inline{
+	color: black;
+	font-size: 1.8em;
+	text-align: center;
+
+}
+
+.jumbo h2{
+	font-size: 2.2em;
+	font-weight: lighter;
+	text-align: center;
+	font-weight: bold;
+}
+
+#city{
+	width: 60%;
+	margin: auto;
+	text-align: center;
+}
+.jumbo{
+	margin-bottom: 0px;
+	background-color: white;
+	color: black;
+}
+input[type='text'],#submitCity{
+	height: 1.8em;
+	font-size: 1.6em;
+	margin-bottom: 8%;
+}
+
+label{
+	font-size: 1.6em;
+	margin-top: 2%;
+}
+table{
+	font-size: 1.6em;
+}
+
+#weather-data{
+	text-align: left;
+	border-radius: 5px;
+	font-size: 1.6em;
+    margin-left: 100px;
+    float: left;
+    margin-right: 100px;
+}
+
+#AQIdata{
+    text-align: left;
+    border-radius: 5px;
+    font-size: 1.6em;
+    margin-left: 50px;
+
+
+}
+
+#bigbox{
+    min-width:150px;
+    min-height:450px;
+    background-color:  white;
+    color: black;
+}
+
+#my-container{
+    padding-left: 50px;
+    margin-left: 50px;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    
+}
+
+#weather-data h3{
+	padding-top: 3%;
+}
+#weather-data p:last-child{
+	padding-bottom: 3%;
+}
+  
+  @-webkit-keyframes blinker {
+  from {opacity: 1.0;}
+  to {opacity: 0.0;}
+}
+.blink{
+	color: black;
+	font-weight: lighter;
+	text-decoration: blink;
+	-webkit-animation-name: blinker;
+	-webkit-animation-duration: 0.6s;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-timing-function:ease-in-out;
+	-webkit-animation-direction: alternate;
+}
+
+                </style>
+                
+            
+            </head>
+            
+            
+            <body>
+                
+<div id="mainContainer">
+                                
+<div class="jumbotron jumbo">
+	<h2>Global Air Pollutant/Meteorological Condition Database </h2>
+</div>
+<div class="container" style="width:100%;">
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="text-center text-primary">Enter City Name:</h3>
+			<div id="error"></div>
+		</div>
+		<div class="row form-group form-inline" id="city">
+			<input type="text" name="cityname" id="cityname" class="form-control" placeholder="Enter city name"></input>
+            <button id="submitCity" class="btn btn-primary" onclick="getWeather(document.getElementById('cityname').value);getAQI(document.getElementById('cityname').value);cityValue(document.getElementById('cityname').value);">Search City</button>
+            <!-- <button id="submitCity" class="btn btn-primary" onclick="chinaUrl();">Search City</button> -->
+        </div>
+        
+        <!-- <div id="china"></div> -->
+        
+        <div id="bigbox" style="width:100%; height: 550px">
+            <div id="weather-data"></div>
+            
+            <div id="AQIdata"></div>
+
+			<br>
+            <div id="Meteorological" style="width:100%; height: 550px"></div>
+
+            <br>
+
+            <div id="weather-and-climate" style="width:100%;align-items: center;"></div>
+
+            <div id = "weather-atlas" style="width:100%; height: 100px; "></div>
+
+            <div id = "criteria" style="width:100%; height: 550px; margin-left: 10%;"></div>
+
+            <div style="margin-top: 100px;"></div>
+            <h3 style="margin-left: 10%">2. PM 2.5 speciation</h3>
+
+            <div id="species25" style="margin-left: 10%;"></div>
+        </div>
+        <!-- <h3>3. PM 10 speciation</h3>
+        <div id="species10"></div> -->
+	</div>
+</div>
+</div>
+<!--Jquery-->
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+<!--bootstarp javascript-->
+
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- <script type="text/javascript" src="script.js"></script> -->
+<script type="text/javascript" src="script.js"></script>
+</body>
+</html>
