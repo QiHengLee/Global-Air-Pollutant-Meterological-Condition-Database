@@ -13,29 +13,36 @@ var AATemperatureData = new Array(12);;
 
 var checkGetCity = false;
 
+var trial = [0, 0, ,0 ,0, 0];
+
 var SO2Dict = {};
 var SO2List = []; 
 var SO2Boolean = [false,false,false,false,false];
+var SO2YearAverage = [0, 0, 0, 0, 0];
 var SO2Data = new Array(12);;
 
 var NO2Dict = {};
 var NO2List = []; 
 var NO2Boolean = [false,false,false,false,false];
+var NO2YearAverage = [0, 0, 0, 0, 0];
 var NO2Data = new Array(12);;
 
 var O3Dict = {};
 var O3List = []; 
 var O3Boolean = [false,false,false,false,false];
+var O3YearAverage = [0, 0, 0, 0, 0];
 var O3Data = new Array(12);;
 
 var PM10Dict = {};
 var PM10List = []; 
 var PM10Boolean = [false,false,false,false,false];
+var PM10YearAverage = [0, 0, 0, 0, 0];
 var PM10Data = new Array(12);;
 
 var PM25Dict = {};
 var PM25List = []; 
 var PM25Boolean = [false,false,false,false,false];
+var PM25YearAverage = [0, 0, 0, 0, 0];
 var PM25Data = new Array(12);;
 
 var sulfate25Dict = {};
@@ -98,11 +105,16 @@ var EPAKey = "aquagazelle78"
 
 setupTabs();
 var meteoInterval = setInterval(meteodraw, 5000);
-var SO2Interval = setInterval(SO2Draw, 5000);
-var NO2Interval = setInterval(NO2Draw, 5000);
-var O3Interval = setInterval(O3Draw, 5000);
-var PM10Interval = setInterval(PM10Draw, 5000);
-var PM25Interval = setInterval(PM25Draw, 5000);
+var SO2Interval = setInterval(SO2DrawMonth, 5000);
+var SO2AverageInterval = setInterval(SO2DrawYear, 5000);
+var NO2Interval = setInterval(NO2DrawMonth, 5000);
+var NO2AverageInterval = setInterval(NO2DrawYear, 5000);
+var O3Interval = setInterval(O3DrawMonth, 5000);
+var O3AverageInterval = setInterval(O3DrawYear, 5000);
+var PM10Interval = setInterval(PM10DrawMonth, 5000);
+var PM10AverageInterval = setInterval(PM10DrawYear, 5000);
+var PM25Interval = setInterval(PM25DrawMonth, 5000);
+var PM25AverageInterval = setInterval(PM25DrawYear, 5000);
 var PM25PieInterval = setInterval(PM25PieDraw, 5000);
 // var PM10PieInterval = setInterval(PM10PieDraw, 5000);
 
@@ -132,13 +144,13 @@ function getWeather(city){
         ammonium25Data = new Array(12);
         EC25Data = new Array(12);
         OC25Data = new Array(12);
-        meteoInterval = setInterval(meteodraw, 5000);
-        SO2Interval = setInterval(SO2Draw, 5000);
-        NO2Interval = setInterval(NO2Draw, 5000);
-        O3Interval = setInterval(O3Draw, 5000);
-        PM10Interval = setInterval(PM10Draw, 5000);
-        PM25Interval = setInterval(PM25Draw, 5000);
-        PM25PieInterval = setInterval(PM25PieDraw, 5000);
+        // meteoInterval = setInterval(meteodraw, 5000);
+        // SO2Interval = setInterval(SO2Draw, 5000);
+        // NO2Interval = setInterval(NO2Draw, 5000);
+        // O3Interval = setInterval(O3Draw, 5000);
+        // PM10Interval = setInterval(PM10Draw, 5000);
+        // PM25Interval = setInterval(PM25Draw, 5000);
+        // PM25PieInterval = setInterval(PM25PieDraw, 5000);
 	var xhr=new XMLHttpRequest();
 	xhr.onreadystatechange=function(){
 		if (this.status==200 && this.readyState==4) {
@@ -352,43 +364,43 @@ function plotGraph(areaCode){
     setDict(EC25Dict);
     setDict(OC25Dict);
 
-    getMonthlyData(areaCode, "62101", OutdoorTempData, OutdoorTempDict, OutdoorTempList, OT);
+    getMonthlyData(areaCode, "62101", OutdoorTempData, OutdoorTempDict, OutdoorTempList, OT, trial);
     setTimeout(() => {
-        getMonthlyData(areaCode, "62201", RHumidityData, RHumidityDict, RHumidityList, RH);
+        getMonthlyData(areaCode, "62201", RHumidityData, RHumidityDict, RHumidityList, RH, trial);
     }, 5000);
     setTimeout(() => {
-        getMonthlyData(areaCode, "68105", AATemperatureData, AATemperatureDict, AATemperatureList, AA);
+        getMonthlyData(areaCode, "68105", AATemperatureData, AATemperatureDict, AATemperatureList, AA, trial);
     }, 10000);
     setTimeout(() => {
-        getMonthlyData(areaCode, "42401", SO2Data, SO2Dict, SO2List, SO2);
+        getMonthlyData(areaCode, "42401", SO2Data, SO2Dict, SO2List, SO2, SO2YearAverage);
     }, 15000);
     setTimeout(() => {
-        getMonthlyData(areaCode, "42602", NO2Data, NO2Dict, NO2List, NO2);
+        getMonthlyData(areaCode, "42602", NO2Data, NO2Dict, NO2List, NO2, NO2YearAverage);
     }, 20000);
     setTimeout(() => {
-        getMonthlyData(areaCode, "44201", O3Data, O3Dict, O3List, O3);
-    }, 25000);
+        getMonthlyData(areaCode, "44201", O3Data, O3Dict, O3List, O3, O3YearAverage);
+    }, 40000);
     setTimeout(() => {
-        getMonthlyData(areaCode, "81102", PM10Data, PM10Dict, PM10List, PM10);
-    }, 30000);
+        getMonthlyData(areaCode, "81102", PM10Data, PM10Dict, PM10List, PM10, PM10YearAverage);
+    }, 50000);
     setTimeout(() => {
-        getMonthlyData(areaCode, "88101", PM25Data, PM25Dict, PM25List, PM25);
-    }, 35000);   
-    setTimeout(() => {
-        getMonthlyData(areaCode, "88403", sulfate25Data, sulfate25Dict, sulfate25List, sulfateFunc25);
+        getMonthlyData(areaCode, "88101", PM25Data, PM25Dict, PM25List, PM25, PM25YearAverage);
     }, 60000);   
     setTimeout(() => {
-        getMonthlyData(areaCode, "88301", ammonium25Data, ammonium25Dict, ammonium25List, ammoniumFunc25);
+        getMonthlyData(areaCode, "88403", sulfate25Data, sulfate25Dict, sulfate25List, sulfateFunc25, trial);
     }, 65000);   
     setTimeout(() => {
-        getMonthlyData(areaCode, "88306", totalNitrate25Data, totalNitrate25Dict, totalNitrate25List, totalNitrateFunc25);
+        getMonthlyData(areaCode, "88301", ammonium25Data, ammonium25Dict, ammonium25List, ammoniumFunc25, trial);
     }, 70000);   
     setTimeout(() => {
-        getMonthlyData(areaCode, "88381", EC25Data, EC25Dict, EC25List, ECFunc25);
+        getMonthlyData(areaCode, "88306", totalNitrate25Data, totalNitrate25Dict, totalNitrate25List, totalNitrateFunc25, trial);
     }, 75000);   
     setTimeout(() => {
-        getMonthlyData(areaCode, "88382", OC25Data, OC25Dict, OC25List, OCFunc25);
-    }, 80000);   
+        getMonthlyData(areaCode, "88381", EC25Data, EC25Dict, EC25List, ECFunc25, trial);
+    }, 800000);   
+    setTimeout(() => {
+        getMonthlyData(areaCode, "88382", OC25Data, OC25Dict, OC25List, OCFunc25, trial);
+    }, 85000);   
     
     // sulfate10Ave(areaCode);
     // ammonium10Ave(areaCode);
@@ -503,7 +515,7 @@ function setDict(_type) {
     console.log(_type);
 }
 
-function getMonthlyData(areaCode, param, output, dict, list, boolData) {
+function getMonthlyData(areaCode, param, output, dict, list, boolData, yearAverage) {
     var xhr = list;
     var k = 0;
     for (var j = 4; j <= 8; j++) {
@@ -516,6 +528,7 @@ function getMonthlyData(areaCode, param, output, dict, list, boolData) {
             xhr[k].onreadystatechange = function(){
                 if (xhr[k].readyState === 4 && xhr[k].status === 200){
                     var data = JSON.parse(xhr[k].responseText).Data;
+                    var total = 0;
                     for(var h = 0; h < data.length; h++) {
                         var date = data[h].date_local
                         if (date.charAt(5) == 1) {
@@ -528,7 +541,9 @@ function getMonthlyData(areaCode, param, output, dict, list, boolData) {
                             dict[value]["count"] += 1;
                             dict[value]["total"] += data[h].arithmetic_mean;
                         }    
+                        total += data[h].arithmetic_mean;
                     }
+                    yearAverage[j-4] = total / data.length;
                     for (var i = 0; i < 12; i++) {
                         output[i] = dict[i]["total"] / dict[i]["count"];
                     }
@@ -665,13 +680,36 @@ function setupTabs() {
                                 "</div>" + 
                             "</div>" +
                         "</div>" +
+                        "<div class='panel panel-default'>" +
+                            "<div class='panel-body' id='panel-body'>" +
+                                "<ul class='nav nav-tabs'>" +
+                                    "<li class='active'><a href='#aa' data-toggle='tab'>SO2</a></li>" +
+                                    "<li><a href='#bb' data-toggle='tab'>NO2</a></li>" +
+                                    "<li><a href='#cc' data-toggle='tab'>O3</a></li>" +
+                                    "<li><a href='#dd' data-toggle='tab'>PM 10</a></li>" +
+                                    "<li><a href='#ee' data-toggle='tab'>PM 2.5</a></li>" +
+                                "</ul>" +
+                                "<div class='tab-content'>" +
+                                    "<div id='aa' class='tab-pane active' style='z-index:-1;'>" +
+                                    "</div>" +
+                                    "<div id='bb' class='tab-pane' style='z-index:-1;'>" +
+                                    "</div>" +
+                                    "<div id='cc' class='tab-pane' style='z-index:-1;'>" +
+                                    "</div>" +
+                                    "<div id='dd' class='tab-pane' style='z-index:-1;'>" +
+                                    "</div>" +
+                                    "<div id='ee' class='tab-pane' style='z-index:-1;'>" +
+                                    "</div>" +
+                                "</div>" + 
+                            "</div>" +
+                        "</div>" +
                     "</div>" +
                 "</div>" +
             "</div>" ;
             document.getElementById("criteria").innerHTML = str2;
 }
 
-function SO2Draw() {
+function SO2DrawMonth() {
     meteoBool = andBool(SO2Boolean);
     console.log(SO2Boolean);
     var trace1 = {
@@ -681,7 +719,7 @@ function SO2Draw() {
     };
 
     var layout = {
-        // width: 800,
+        width: 800,
         xaxis: {
             dtick: 1,
             title: {
@@ -711,7 +749,47 @@ function SO2Draw() {
     }
 }
 
-function NO2Draw() {
+function SO2DrawYear() {
+    meteoBool = andBool(SO2Boolean);
+    console.log(SO2Boolean);
+    var trace1 = {
+        x: [2014, 2015, 2016, 2017, 2018],
+        y: SO2YearAverage,
+        type: 'scatter',
+    };
+
+    var layout = {
+        width: 800,
+        xaxis: {
+            dtick: 1,
+            title: {
+                text: 'Year',
+                font: {
+                    family: 'Courier New, monospace',
+                    size: 18,
+                    color: '#7f7f7f',
+                }
+            },
+        },
+        
+        yaxis: {
+            title: '\u03BC'+'m/m3 conc.',
+            titlefont: {color: '#1f77b4'},
+            tickfont: {color: '#1f77b4'}
+        },
+        
+    };
+
+    var config = {responsive: true}
+
+    Plotly.newPlot('aa', [trace1], layout, config);
+
+    if (meteoBool) {
+        clearInterval(SO2AverageInterval);
+    }
+}
+
+function NO2DrawMonth() {
     meteoBool = andBool(NO2Boolean);
     console.log(NO2Boolean);
     var trace1 = {
@@ -721,7 +799,7 @@ function NO2Draw() {
     };
 
     var layout = {
-        // width: 800,
+        width: 800,
         xaxis: {
             dtick: 1,
             title: {
@@ -750,7 +828,47 @@ function NO2Draw() {
     }
 }
 
-function O3Draw() {
+function NO2DrawYear() {
+    meteoBool = andBool(NO2Boolean);
+    console.log(NO2Boolean);
+    var trace1 = {
+        x: [2014, 2015, 2016, 2017, 2018],
+        y: NO2YearAverage,
+        type: 'scatter',
+    };
+
+    var layout = {
+        width: 800,
+        xaxis: {
+            dtick: 1,
+            title: {
+                text: 'Year',
+                font: {
+                    family: 'Courier New, monospace',
+                    size: 18,
+                    color: '#7f7f7f',
+                }
+            },
+        },
+        
+        yaxis: {
+            title: '\u03BC'+'m/m3 conc.',
+            titlefont: {color: '#1f77b4'},
+            tickfont: {color: '#1f77b4'}
+        },
+        
+    };
+
+    var config = {responsive: true}
+
+    Plotly.newPlot('bb', [trace1], layout, config);
+
+    if (meteoBool) {
+        clearInterval(NO2AverageInterval);
+    }
+}
+
+function O3DrawMonth() {
     meteoBool = andBool(O3Boolean);
     console.log(O3Boolean);
     var trace1 = {
@@ -760,7 +878,7 @@ function O3Draw() {
     };
 
     var layout = {
-        // width: 800,
+        width: 800,
         xaxis: {
             dtick: 1,
             title: {
@@ -789,7 +907,47 @@ function O3Draw() {
     }
 }
 
-function PM10Draw() {
+function O3DrawYear() {
+    meteoBool = andBool(O3Boolean);
+    console.log(O3Boolean);
+    var trace1 = {
+        x: [2014, 2015, 2016, 2017, 2018],
+        y: O3YearAverage,
+        type: 'scatter',
+    };
+
+    var layout = {
+        width: 800,
+        xaxis: {
+            dtick: 1,
+            title: {
+                text: 'Year',
+                font: {
+                    family: 'Courier New, monospace',
+                    size: 18,
+                    color: '#7f7f7f',
+                }
+            },
+        },
+        
+        yaxis: {
+            title: '\u03BC'+'m/m3 conc.',
+            titlefont: {color: '#1f77b4'},
+            tickfont: {color: '#1f77b4'}
+        },
+        
+    };
+
+    var config = {responsive: true}
+
+    Plotly.newPlot('cc', [trace1], layout, config);
+
+    if (meteoBool) {
+        clearInterval(O3AverageInterval);
+    }
+}
+
+function PM10DrawMonth() {
     meteoBool = andBool(PM10Boolean);
     console.log(PM10Boolean);
     var trace1 = {
@@ -799,7 +957,7 @@ function PM10Draw() {
     };
 
     var layout = {
-        // width: 800,
+        width: 800,
         xaxis: {
             dtick: 1,
             title: {
@@ -828,8 +986,47 @@ function PM10Draw() {
     }
 }
 
+function PM10DrawYear() {
+    meteoBool = andBool(PM10Boolean);
+    console.log(PM10Boolean);
+    var trace1 = {
+        x: [2014, 2015, 2016, 2017, 2018],
+        y: PM10YearAverage,
+        type: 'scatter',
+    };
 
-function PM25Draw() {
+    var layout = {
+        width: 800,
+        xaxis: {
+            dtick: 1,
+            title: {
+                text: 'Year',
+                font: {
+                    family: 'Courier New, monospace',
+                    size: 18,
+                    color: '#7f7f7f',
+                }
+            },
+        },
+        
+        yaxis: {
+            title: '\u03BC'+'m/m3 conc.',
+            titlefont: {color: '#1f77b4'},
+            tickfont: {color: '#1f77b4'}
+        },
+        
+    };
+
+    var config = {responsive: true}
+
+    Plotly.newPlot('dd', [trace1], layout, config);
+
+    if (meteoBool) {
+        clearInterval(PM10AverageInterval);
+    }
+}
+
+function PM25DrawMonth() {
     meteoBool = andBool(PM25Boolean);
     console.log(PM25Boolean);
     var trace1 = {
@@ -839,7 +1036,7 @@ function PM25Draw() {
     };
 
     var layout = {
-        // width: 800,
+        width: 800,
         xaxis: {
             dtick: 1,
             title: {
@@ -865,6 +1062,46 @@ function PM25Draw() {
     Plotly.newPlot('e', [trace1], layout, config);
     if (meteoBool) {
         clearInterval(PM25Interval);
+    }
+}
+
+function PM25DrawYear() {
+    meteoBool = andBool(PM25Boolean);
+    console.log(PM25Boolean);
+    var trace1 = {
+        x: [2014, 2015, 2016, 2017, 2018],
+        y: PM25YearAverage,
+        type: 'scatter',
+    };
+
+    var layout = {
+        width: 800,
+        xaxis: {
+            dtick: 1,
+            title: {
+                text: 'Year',
+                font: {
+                    family: 'Courier New, monospace',
+                    size: 18,
+                    color: '#7f7f7f',
+                }
+            },
+        },
+        
+        yaxis: {
+            title: '\u03BC'+'m/m3 conc.',
+            titlefont: {color: '#1f77b4'},
+            tickfont: {color: '#1f77b4'}
+        },
+        
+    };
+
+    var config = {responsive: true}
+
+    Plotly.newPlot('ee', [trace1], layout, config);
+
+    if (meteoBool) {
+        clearInterval(PM25AverageInterval);
     }
 }
 
