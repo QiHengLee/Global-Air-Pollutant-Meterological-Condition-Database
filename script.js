@@ -107,6 +107,7 @@ setupTabs();
 var meteoInterval = setInterval(meteodraw, 5000);
 var SO2Interval = setInterval(SO2DrawMonth, 5000);
 var SO2AverageInterval = setInterval(SO2DrawYear, 5000);
+// var SO2TrendInterval = setInterval(SO2DrawTrend, 5000);
 var NO2Interval = setInterval(NO2DrawMonth, 5000);
 var NO2AverageInterval = setInterval(NO2DrawYear, 5000);
 var O3Interval = setInterval(O3DrawMonth, 5000);
@@ -529,6 +530,7 @@ function getMonthlyData(areaCode, param, output, dict, list, boolData, yearAvera
                 if (xhr[k].readyState === 4 && xhr[k].status === 200){
                     var data = JSON.parse(xhr[k].responseText).Data;
                     var total = 0;
+                    var year = "201" + toString(j);
                     for(var h = 0; h < data.length; h++) {
                         var date = data[h].date_local
                         if (date.charAt(5) == 1) {
@@ -546,7 +548,9 @@ function getMonthlyData(areaCode, param, output, dict, list, boolData, yearAvera
                     yearAverage[j-4] = total / data.length;
                     for (var i = 0; i < 12; i++) {
                         output[i] = dict[i]["total"] / dict[i]["count"];
+                        // dict[year]["final"][i] = dict[year][i]["total"] / dict[year][i]["count"]
                     }
+                    
                     boolData(k);
                 }
             };
@@ -699,6 +703,29 @@ function setupTabs() {
                                     "<div id='dd' class='tab-pane' style='z-index:-1;'>" +
                                     "</div>" +
                                     "<div id='ee' class='tab-pane' style='z-index:-1;'>" +
+                                    "</div>" +
+                                "</div>" + 
+                            "</div>" +
+                        "</div>" +
+                        "<div class='panel panel-default'>" +
+                            "<div class='panel-body' id='panel-body'>" +
+                                "<ul class='nav nav-tabs'>" +
+                                    "<li class='active'><a href='#aaa' data-toggle='tab'>SO2</a></li>" +
+                                    "<li><a href='#bbb' data-toggle='tab'>NO2</a></li>" +
+                                    "<li><a href='#ccc' data-toggle='tab'>O3</a></li>" +
+                                    "<li><a href='#ddd' data-toggle='tab'>PM 10</a></li>" +
+                                    "<li><a href='#eee' data-toggle='tab'>PM 2.5</a></li>" +
+                                "</ul>" +
+                                "<div class='tab-content'>" +
+                                    "<div id='aaa' class='tab-pane active' style='z-index:-1;'>" +
+                                    "</div>" +
+                                    "<div id='bbb' class='tab-pane' style='z-index:-1;'>" +
+                                    "</div>" +
+                                    "<div id='ccc' class='tab-pane' style='z-index:-1;'>" +
+                                    "</div>" +
+                                    "<div id='ddd' class='tab-pane' style='z-index:-1;'>" +
+                                    "</div>" +
+                                    "<div id='eee' class='tab-pane' style='z-index:-1;'>" +
                                     "</div>" +
                                 "</div>" + 
                             "</div>" +

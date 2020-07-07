@@ -156,11 +156,14 @@ table{
 }
 
 #bigbox{
+	max-width: 1300px;
     min-width:150px;
     min-height:450px;
     background-color:  white;
     color: black;
+	margin:0 auto;
 }
+
 
 #my-container{
     padding-left: 50px;
@@ -219,11 +222,14 @@ table{
         
         <!-- <div id="china"></div> -->
         
-        <div id="bigbox" style="width:100%; height: 550px">
-            <div id="weather-data"></div>
+		<div id="bigbox" style="width:100%; height: 550px">
+			<div id="innerbox">
+				<div id="weather-data"></div>
             
-            <div id="AQIdata"></div>
+            	<div id="AQIdata"></div>
 
+			</div>
+            
 			<br>
             <div id="Meteorological" style="width:100%; height: 550px"></div>
 
@@ -233,7 +239,7 @@ table{
 
             <div id = "weather-atlas" style="width:100%; height: 100px; "></div>
 
-            <div id = "criteria" style="width:100%; height: 1100px; margin-left: 10%;"></div>
+            <div id = "criteria" style="width:100%; height: 1650px; margin-left: 10%;"></div>
 
             <div style="margin-top: 100px;"></div>
             <h3 style="margin-left: 10%">2. PM 2.5 speciation</h3>
